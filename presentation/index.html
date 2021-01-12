@@ -1,0 +1,1061 @@
+//
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>reveal.js</title>
+
+	<link rel="stylesheet" href="dist/reset.css">
+	<link rel="stylesheet" href="dist/reveal.css">
+	<link rel="stylesheet" href="dist/theme/moon.css" id="theme">
+
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<h1 style="font-size: 360px;">CANVAS</h1>
+			</section>
+			<section>
+				<p><span style="color: #00FF00;">&lt;canvas&gt;</span> is an <span
+						style="font-style: italic; font-weight: 700; color: #FFFFFF;">HTML element</span> which can be
+					used to draw graphics via scripting (usually JavaScript).</p>
+				<p>It can be used for rendering graphs, game graphics, fancy text, or other images.</p>
+			</section>
+			<section>
+				<h3>HISTORY</h3>
+				<p>In <span style="font-weight: 700; color: #FFFFFF;">2004</span> Canvas was initially introduced by
+					<span style="font-style: italic; color: #FFFFFF;">Apple</span> for use in their own <span
+						style="font-style: italic; color: #FFFFFF;">Mac OS X WebKit component</span>. It was intended
+					for use in applications such as the <span style="font-style: italic; color: #FFFFFF;">Dashboard
+						widget</span> and the <span style="font-style: italic; color: #FFFFFF;">Safari browser</span>.
+				</p>
+				<p><span style="font-style: italic; color: #FFFFFF;">Later</span>, canvas <span
+						style="font-style: italic; color: #FFFFFF;">was implemented in browsers</span> and standardized
+					by the <span style="color: #FFFFFF;">Web Hypertext Application Technology Working Group
+						(WHATWG)</span> on new proposed specifications for next generation web technologies.</p>
+			</section>
+			<section>
+				<h3>BROWSER SUPPORT</h3>
+				<img src="assets/img/canvas browser support.jpg" alt="browser support">
+			</section>
+			<section>
+				<section>
+					<h3>&lt;canvas&gt; element</h3>
+					<p>In HTML, a <span style="color: #00FF00;">&lt;canvas&gt;</span> element looks like this:</p>
+					<pre>
+							<code data-trim data-noescape>
+						      &lt;canvas id="myCanvas" width="200" height="100"&gt;&lt;/canvas&gt;
+							</code>
+						</pre>
+				</section>
+				<section>
+					<p>The <span style="color: #00FF00;">&lt;canvas&gt;</span> element must have an <span
+							style="color: #FFFFFF; opacity: 0.9;">id</span> attribute so it can be referred to by
+						JavaScript.</p>
+				</section>
+				<section>
+					<p>The <span style="color: #FFFFFF;">width</span> and <span style="color: #FFFFFF;">height</span>
+						attribute is necessary to define the <span
+							style="color: #FFFFFF; font-style: italic;">size</span> of the canvas.</p>
+					<p style="font-weight: 500;"><span style="color: #FFFFFF;">By default</span> the canvas is initially
+						<span style="color: #00FF00;">300 pixels wide</span> and <span style="color: #00FF00;">150
+							pixels high</span>.</p>
+				</section>
+				<section>
+					<p><span style="color: #FFFFFF;">By default</span> the <span
+							style="color: #00FF00;">&lt;canvas&gt;</span> element has <span
+							style="color: #FFFFFF; font-style: italic;">no border</span> and <span
+							style="color: #FFFFFF; font-style: italic;">no content</span>.</p>
+				</section>
+				<section>
+					<p>To see the area and borders of the <span
+						style="color: #FFFFFF;">&lt;canvas&gt;</span> add a <span style="color: #FFFFFF; font-style: italic;">border style</span></p>
+						<div>
+							<div style="font-size: xx-large;">
+								<pre>
+										 <code data-trim data-noescape>
+											&lt;canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;">&lt;/canvas&gt;
+										 </code>
+									 </pre>
+							</div>
+							<div>
+								<img src="assets/img/canvas-border.jpg" alt="canvas-border">
+							</div>
+						</div>
+
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>HTML Canvas Drawing</h2>
+				</section>
+				<section>
+					<p style="font-size: larger;">Find the <span style="color: #00FF00;">&lt;canvas&gt;</span> element.
+					</p>
+					<p>This is done by using the HTML DOM method <span style="color: #FFFFFF;">getElementById():</span>
+					</p>
+					<pre>
+							<code data-trim data-noescape>
+								const canvas = document.getElementById("myCanvas");
+							</code>
+						</pre>
+				</section>
+				<section>
+					<p style="font-size: larger;">Create a <span style="color: #FFFFFF;">drawing object</span> for the
+						canvas.</p>
+					<p>The <span style="color: #00FF00;">getContext()</span> is a <span style="color: #FFFFFF;">built-in
+							HTML object</span>, with properties and methods for drawing:</p>
+					<pre>
+							<code data-trim data-noescape>
+								const ctx = canvas.getContext("2d");
+							</code>
+						</pre>
+				</section>
+				<section>
+
+					<p>Set the <span style="color: #00FF00;">fillStyle</span> of the drawing object to the color green:
+					</p>
+					<pre>
+							<code data-trim data-noescape>
+								ctx.fillStyle = "#00FF00";
+							</code>
+						</pre>
+					<p>The <span style="color: #00FF00;">fillStyle</span> property can be a <span
+							style="color: #FFFFFF; font-style: italic;">CSS color</span>, a <span
+							style="color: #FFFFFF; font-style: italic;">gradient</span>, or a <span
+							style="color: #FFFFFF; font-style: italic;">pattern</span>. The <span
+							style="color: #FFFFFF;">default</span> <span style="color: #00FF00;">fillStyle</span> is
+						<span style="color: #000000; font-style: italic; font-weight: 700;">black</span>.</p>
+					<p>The <span style="color: #00FF00;">fillRect(x,y,width,height)</span> method draws a <span
+							style="color: #FFFFFF;">rectangle</span>, filled with the <span
+							style="color: #FFFFFF; font-style: italic;">fillStyle</span>, on the canvas:</p>
+					<pre>
+							<code data-trim data-noescape>
+								ctx.fillRect(0, 0, 150, 75);
+							</code>
+						</pre>
+				</section>
+				<section>
+					<h5>Example</h5>
+					<div style="display:inline-block;">
+						<div>
+							<pre>
+									<code data-trim data-noescape>
+										&lt;script&gt;
+										  const canvas = document.getElementById("myCanvas");
+										  const ctx = canvas.getContext("2d");
+										  ctx.fillStyle = "#00FF00";
+										  ctx.fillRect(0, 0, 150, 75);
+										&lt;/script&gt;
+									</code>
+								</pre>
+						</div>
+						<div>
+							<img src="assets/img/canvas rectangle.jpg" alt="rectangle" style="align-self: center;">
+						</div>
+					</div>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>HTML Canvas Coordinates</h2>
+				</section>
+				<section class="example">
+					<div style="float: left; width: 55%;">
+						<p>The <span style="color: #00FF00;">HTML canvas</span> is <br> a <span
+								style="color: #FFFFFF;">two-dimensional grid</span>.</p>
+						<p>The <span style="color: #FFFFFF; font-style: italic;">upper-left corner</span> of the canvas
+							has the <span style="color: #FFFFFF;">coordinates (0,0)</span></p>
+					</div>
+					<div>
+						<img src="assets/img/Canvas_default_grid.png" alt="canvas-grid">
+					</div>
+				</section>
+				<section class="example">
+					<div>
+						<p>The method used earlier - <span style="color: #FFFFFF;">fillRect(0,0,150,75)</span> - means:
+						</p>
+						<p><span style="font-style: italic;">Start</span> at the <span
+								style="color: #FFFFFF; font-style: italic;">upper-left corner (0,0)</span> and <br>
+							<span style="font-style: italic;">draw</span> a <span style="color: #FFFFFF;">150x75 pixels
+								rectangle</span>.</p>
+					</div>
+					<div>
+						<img src="assets/img/rectangle-coord.jpg" alt="rectangle-coordinates">
+					</div>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Draw a Line</h2>
+				</section>
+				<section>
+					<p style="font-size: larger;">To draw a <span style="color: #FFFFFF; font-style: italic;">straight
+							line</span> on a canvas, the following <span style="color: #FFFFFF;">methods</span> are
+						used:</p>
+					<ul>
+						<li><span style="color: #00FF00;">moveTo(x,y)</span> - defines the <span
+								style="color: #FFFFFF; font-style: italic;">starting point</span> of the line</li>
+						<li><span style="color: #00FF00;">lineTo(x,y)</span> - defines the <span
+								style="color: #FFFFFF; font-style: italic;">ending point</span> of the line</li>
+					</ul> <br>
+					<p>To actually draw the line, the following method is used: <br> <span
+							style="color: #00FF00;">stroke()</span></p>
+				</section>
+				<section>
+					<div>
+						<div>
+							<pre>
+									<code data-trim data-noescape>
+										const canvas = document.getElementById("myCanvas");
+										const ctx = canvas.getContext("2d");
+										ctx.moveTo(0, 0);
+										ctx.lineTo(100, 50);
+										ctx.strokeStyle = '#00FF00';
+										ctx.stroke();
+									</code>
+								</pre>
+						</div>
+						<div>
+							<img src="assets/img/canvas-line.jpg" alt="canvas-line">
+						</div>
+					</div>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Draw a Circle</h2>
+				</section>
+				<section>
+					<p style="font-size: larger;">To draw a <span
+							style="color: #FFFFFF; font-style: italic;">circle</span> on a canvas, the following <span
+							style="color: #FFFFFF;">methods</span> are used:</p>
+					<ul>
+						<li><span style="color: #00FF00;">beginPath()</span> - begins a path</li>
+						<li><span style="color: #00FF00;">arc(x,y,r,startangle,endangle)</span> - creates an arc/curve.
+							<br>
+							To create a circle with arc(): <br>
+							- Set <span style="color: #FFFFFF; font-style: italic;">start angle</span> to <span
+								style="color:#00FF00">0</span> and <span style="color: #FFFFFF; font-style: italic;">end
+								angle</span> to <span style="color:#00FF00;">2*Math.PI</span>. <br>
+							- The <span style="color: #00FF00;">x</span> and <span style="color: #00FF00;">y</span>
+							parameters define the <span style="color: #FFFFFF; font-style: italic;">x- and
+								y-coordinates</span> of the <span style="color: #FFFFFF;">center of the circle</span>.
+							<br>
+							- The <span style="color: #00FF00;">r</span> parameter defines the <span
+								style="color: #FFFFFF;">radius of the circle</span>.</li>
+					</ul> <br>
+				</section>
+				<section>
+					<div>
+						<div>
+							<pre>
+									 <code data-trim data-noescape>
+										 const canvas = document.getElementById("myCanvas");
+										 const ctx = canvas.getContext("2d");
+										 ctx.beginPath();
+										 ctx.arc(95, 50, 40, 0, 2 * Math.PI);
+										 ctx.strokeStyle = '#00FF00';
+										 ctx.stroke();
+									 </code>
+								 </pre>
+						</div>
+						<div>
+							<img src="assets/img/canvas-circle.jpg" alt="canvas-circle">
+						</div>
+					</div>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>HTML Canvas Gradients</h2>
+				</section>
+				<section style="font-size: smaller;">
+					<p><span style="color: #FFFFFF;">Gradients</span> can be used to fill rectangles, circles, lines,
+						text, etc.</p>
+					<p>There are two different <span style="color: #FFFFFF; font-style: italic;">types</span> of
+						gradients:</p>
+					<ul>
+						<li><span style="color: #00FF00;">createLinearGradient(x,y,x1,y1)</span> - creates a <span
+								style="color: #FFFFFF; font-style: italic;">linear gradient</span></li>
+						<li><span style="color: #00FF00;">createRadialGradient(x,y,r,x1,y1,r1)</span> - creates a <span
+								style="color: #FFFFFF; font-style: italic;">radial/circular gradient</span></li>
+					</ul>
+					<p>Then add two or more color stops.</p>
+					<p>The <span style="color: #00FF00;">addColorStop()</span> method specifies the <span
+							style="color: #FFFFFF; font-style: italic;">color stops</span>, and its position along the
+						gradient. <br>
+						<span style="color: #FFFFFF; font-style: italic;">Gradient positions</span> can be anywhere
+						<span style="color: #FFFFFF;">between</span> <span style="color: #00FF00;">0</span> to <span
+							style="color: #00FF00;">1</span>.</p>
+					<p>To use the gradient, <span style="color: #FFFFFF;">set the fillStyle</span> or <span
+							style="color: #FFFFFF;">strokeStyle</span> property to the gradient, then <span
+							style="color: #FFFFFF;">draw the shape (rectangle, text, or a line)</span>.</p>
+				</section>
+				<section>
+					<p style="font-size: larger;">Using <span
+							style="color: #FFFFFF;">createLinearGradient(x,y,x1,y1)</span>:</p>
+					<table style="font-size: smaller; color: #FFFFFF;">
+						<tr>
+							<td><span style="color: #00FF00;">x</span> </td>
+							<td>
+								<span style="font-style: italic;">X-coordinate</span> <span style="opacity: 0.6;">of
+									the</span> starting point <span style="opacity: 0.6;">of the gradient</span></td>
+						</tr>
+						<tr>
+							<td> <span style="color: #00FF00;">y</span></td>
+							<td>
+								<span style="font-style: italic;">Y-coordinate</span><span style="opacity: 0.6;"> of
+									the</span> starting point <span style="opacity: 0.6;">of the gradient</span></td>
+						</tr>
+						<tr>
+							<td><span style="color: #00FF00;">x1</span></td>
+							<td><span style="font-style: italic;">X-coordinate</span> <span style="opacity: 0.6;">of
+									the</span> ending point <span style="opacity: 0.6;">of the gradient</span></td>
+						</tr>
+						<tr>
+							<td><span style="color: #00FF00;">y1</span></td>
+							<td><span style="font-style: italic;">Y-coordinate</span><span style="opacity: 0.6;"> of
+									the</span> ending point <span style="opacity: 0.6;">of the gradient</span></td>
+						</tr>
+					</table>
+				</section>
+				<section>
+					<div>
+						<pre>
+								<code data-trim data-noescape>
+									const canvas = document.getElementById("myCanvas");
+									const ctx = canvas.getContext("2d");
+									// Create gradient
+									const grd = ctx.createLinearGradient(0, 0, 170, 0);
+									grd.addColorStop(0, "#00FF00");
+									grd.addColorStop(1, "#FFFFFF");
+									// Fill with gradient
+									ctx.fillStyle = grd;
+									ctx.fillRect(10, 10, 150, 80);
+								</code>
+							</pre>
+					</div>
+					<div>
+						<img src="assets/img/canvas-gradient-linear.jpg" alt="canvas-gradient-linear">
+					</div>
+				</section>
+				<section>
+					<p style="font-size: larger;">Using <span
+							style="color:#FFFFFF;">createRadialGradient(x,y,r,x1,y1,r1)</span>:</p>
+					<table style="font-size: smaller; color: #FFFFFF;">
+						<tr>
+							<td><span style="color: #00FF00;">x</span></td>
+							<td>
+								<span style="font-style: italic;">X-coordinate</span> <span style="opacity: 0.6;">of
+									the</span> starting circle <span style="opacity: 0.6;">of the gradient</span></td>
+						</tr>
+						<tr>
+							<td><span style="color: #00FF00;">y</span></td>
+							<td>
+								<span style="font-style: italic;">Y-coordinate</span> <span style="opacity: 0.6;">of
+									the</span> starting circle <span style="opacity: 0.6;">of the gradient</span></td>
+						</tr>
+						<tr>
+							<td><span style="color: #00FF00;">r</span></td>
+							<td><span style="font-style: italic;">radius</span> <span style="opacity: 0.6;">of
+									the</span> starting circle <span style="opacity: 0.6;">of the gradient</span></td>
+						</tr>
+						<tr>
+							<td><span style="color: #00FF00;">x1</span></td>
+							<td><span style="font-style: italic;">X-coordinate</span> <span style="opacity: 0.6;">of
+									the</span> ending circle <span style="opacity: 0.6;">of the gradient</span></td>
+						</tr>
+						<tr>
+							<td><span style="color: #00FF00;">y1</span></td>
+							<td><span style="font-style: italic;">Y-coordinate</span> <span style="opacity: 0.6;">of
+									the</span> ending circle <span style="opacity: 0.6;">of the gradient</span></td>
+						</tr>
+						<tr>
+							<td><span style="color: #00FF00;">r1</span></td>
+							<td><span style="font-style: italic;">radius</span> <span style="opacity: 0.6;">of
+									the</span> ending circle <span style="opacity: 0.6;">of the gradient</span></td>
+						</tr>
+
+					</table>
+				</section>
+				<section>
+					<div>
+						<div>
+							<pre>
+									<code data-trim data-noescape>
+										const canvas = document.getElementById("myCanvas");
+										const ctx = canvas.getContext("2d");
+										// Create gradient
+										const grd = ctx.createRadialGradient(75, 50, 5, 90, 60, 100);
+										grd.addColorStop(0, "#00FF00");
+										grd.addColorStop(1, "#FFFFFF");
+										// Fill with gradient
+										ctx.fillStyle = grd;
+										ctx.fillRect(10, 10, 150, 80);
+									</code>
+								</pre>
+						</div>
+						<div>
+							<img src="assets/img/canvas-gradient-radial.jpg" alt="canvas-gradient-radial">
+						</div>
+					</div>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>HTML Canvas Text</h2>
+				</section>
+				<section>
+					<p style="font-size: larger;">To draw <span style="color: #FFFFFF; font-style: italic;">text</span>
+						on a canvas, the most important <span style="color: #FFFFFF;"> property</span> and <span
+							style="color: #FFFFFF;">methods</span> are:</p>
+					<ul>
+						<li><span style="color: #00FF00;">font</span> - defines the <span
+								style="color: #FFFFFF; font-style: italic;">font</span> properties for the text</li>
+						<li><span style="color: #00FF00;">fillText(text,x,y)</span> - draws <span
+								style="color: #FFFFFF; font-style: italic;">"filled" text</span> on the canvas</li>
+						<li><span style="color: #00FF00;">strokeText(text,x,y)</span> - draws <span
+								style="color: #FFFFFF; font-style: italic;">text</span> on the canvas <span
+								style="color: #FFFFFF; font-style: italic;">(no fill)</span></li>
+					</ul>
+				</section>
+				<section>
+					<p style="font-size:larger;">Using <span style="color: #FFFFFF;">fillText()</span></p>
+					<div>
+						<div>
+							<pre>
+									<code data-trim data-noescape>
+									  const canvas = document.getElementById("myCanvas");
+									  const ctx = canvas.getContext("2d");
+									  ctx.font = "35px Arial";
+									  ctx.fillText("Hello World", 20, 50);
+									</code>
+								</pre>
+						</div>
+						<div>
+							<img src="assets/img/canvas-filltext.jpg" alt="canvas-filltext">
+						</div>
+					</div>
+				</section>
+				<section>
+					<p style="font-size: larger;">Using <span style="color: #FFFFFF;">strokeText()</span></p>
+					<div>
+						<div>
+							<pre>
+									<code data-trim data-noescape>
+									  const canvas = document.getElementById("myCanvas");
+									  const ctx = canvas.getContext("2d");
+									  ctx.font = "35px Arial";
+									  ctx.strokeText("Hello World", 20, 50);
+									</code>
+								</pre>
+						</div>
+						<div>
+							<img src="assets/img/canvas-stroketext.jpg" alt="canvas-stroketext">
+						</div>
+					</div>
+				</section>
+				<section>
+					<p style="font-size: larger;"><span style="color: #FFFFFF;">Add Color and Center Text</span></p>
+					<div>
+						<div>
+							<pre>
+									<code data-trim data-noescape>
+									  const canvas = document.getElementById("myCanvas");
+									  const ctx = canvas.getContext("2d");
+									  ctx.font = "35px Arial";
+									  ctx.fillStyle = "#00FF00";
+									  ctx.textAlign = "center";
+									  ctx.fillText("Hello World", canvas.width/2, canvas.height/2);
+									</code>
+								</pre>
+						</div>
+						<div>
+							<img src="assets/img/canvas-filltext-style.jpg" alt="canvas-filltext-style">
+						</div>
+					</div>
+
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>HTML Canvas Images</h2>
+				</section>
+				<section>
+					<p style="font-size: larger;">To draw an <span
+							style="font-style: italic; color: #FFFFFF;">image</span> on a canvas, use the following
+						<span style="color: #FFFFFF;">method</span>:</p>
+					<p><span style="color:#00FF00;">drawImage(image,x,y, width, height)</span>:</p>
+					<table style="font-size: smaller; color: #FFFFFF;">
+						<tr>
+							<td><span style="color: #00FF00;">image</span></td>
+							<td>specifies the <span style="font-style: italic;">image</span>, <span
+									style="font-style: italic;">video</span>, or <span
+									style="color: #00FF00; font-style: italic;">&lt;canvas&gt;</span> element to use
+							</td>
+						</tr>
+						<tr>
+							<td><span style="color: #00FF00;">x</span></td>
+							<td><span style="font-style: italic;">X-coordinate</span> on the canvas where the image will
+								be placed</td>
+						</tr>
+						<tr>
+							<td><span style="color: #00FF00;">y</span></td>
+							<td><span style="font-style: italic;">Y-coordinate</span> on the canvas where the image will
+								be placed</td>
+						</tr>
+						<tr>
+							<td><span style="color: #00FF00;">width</span></td>
+							<td>applied image <span style="font-style: italic;">width</span> (optional parameter)</td>
+						</tr>
+						<tr>
+							<td><span style="color: #00FF00;">height</span></td>
+							<td>applied image <span style="font-style: italic;">height</span> (optional parameter)</td>
+						</tr>
+					</table>
+				</section>
+				<section>
+					<div style="display: flex; flex-direction: row;">
+						<div style="align-self: center; width: 60%;">
+							<div> HTML:
+								<pre style="font-size:medium;">
+										<code data-trim data-noescape>
+										  &lt;canvas id="myCanvas" width="210" 
+											  height="280" style="border:1px solid #000000;"&gt;&lt;/canvas&gt;
+										  &lt;img id="nature" width="180" height="80" 
+											  src="nature.jpg" alt="nature"&gt;
+										</code>
+									</pre>
+							</div>
+							<div>JavaScript:
+								<pre style="font-size:medium;">
+										<code data-trim data-noescape>
+											window.onload = function() {
+											  const canvas = document.getElementById("myCanvas");
+											  const ctx = canvas.getContext("2d");
+											  const img = document.getElementById("nature");
+											  ctx.drawImage(img, 10, 10);
+											};
+										</code>
+									</pre>
+							</div>
+						</div>
+						<div style="align-self: center; width: 40%;">
+							<img src="assets/img/canvas-image.jpg" alt="nature">
+						</div>
+					</div>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Another examples of using &lt;canvas&gt;</h2>
+				</section>
+				<section>
+					<h5>Charts</h5>
+					<div>
+						<canvas width="500" height="500" id="canvasCharts"></canvas>
+						<script>
+							var data = [16, 68, 20, 30, 54];
+							var canvas = document.getElementById('canvasCharts');
+
+							// получаем указатель на контекст рисования
+							var c = canvas.getContext('2d');
+							c.fillStyle = "white";
+							c.fillRect(0, 0, 500, 500);
+
+							// рисуем данные
+							c.fillStyle = "#00FF00";
+							for (var i = 0; i < data.length; i++) {
+								var dp = data[i];
+								c.fillRect(40 + i * 100, 460 - dp * 5, 50, dp * 5);
+							}
+
+							c.fillStyle = "black";
+							c.lineWidth = 2.0;
+							c.beginPath();
+							c.moveTo(30, 10);
+							c.lineTo(30, 460);
+							c.lineTo(490, 460);
+							c.stroke();
+
+							c.fillStyle = "black";
+							for (var i = 0; i < 6; i++) {
+								c.fillText((5 - i) * 20 + "", 4, i * 80 + 60);
+								c.beginPath();
+								c.moveTo(25, i * 80 + 60);
+								c.lineTo(30, i * 80 + 60);
+								c.stroke();
+							}
+							var labels = ["JAN", "FEB", "MAR", "APR", "MAY"];
+							// выводим текст
+							for (var i = 0; i < 5; i++) {
+								c.fillText(labels[i], 50 + i * 100, 475);
+							}
+						</script>
+					</div>
+				</section>
+				<section>
+					<h5>Animation</h5>
+					<div>
+						<canvas id="canvasAnimation" width="400" height="400" style="background-color:#002B36"></canvas>
+						<script>
+							var canvas = document.getElementById("canvasAnimation");
+							var ctx = canvas.getContext("2d");
+							var radius = canvas.height / 2;
+							ctx.translate(radius, radius);
+							radius = radius * 0.90
+							setInterval(drawClock, 1000);
+
+							function drawClock() {
+								ctx.arc(0, 0, radius, 0, 2 * Math.PI);
+								ctx.fillStyle = "white";
+								ctx.fill();
+								drawFace(ctx, radius);
+								drawNumbers(ctx, radius);
+								drawTime(ctx, radius);
+							}
+
+							function drawFace(ctx, radius) {
+								var grad;
+
+								ctx.beginPath();
+								ctx.arc(0, 0, radius, 0, 2 * Math.PI);
+								ctx.fillStyle = 'white';
+								ctx.fill();
+
+								grad = ctx.createRadialGradient(0, 0, radius * 0.95, 0, 0, radius * 1.05);
+								grad.addColorStop(0, '#333');
+								grad.addColorStop(0.5, 'white');
+								grad.addColorStop(1, '#333');
+								ctx.strokeStyle = grad;
+								ctx.lineWidth = radius * 0.1;
+								ctx.stroke();
+
+								ctx.beginPath();
+								ctx.arc(0, 0, radius * 0.1, 0, 2 * Math.PI);
+								ctx.fillStyle = '#333';
+								ctx.fill();
+							}
+
+							function drawNumbers(ctx, radius) {
+								var ang;
+								var num;
+								ctx.font = radius * 0.15 + "px arial";
+								ctx.textBaseline = "middle";
+								ctx.textAlign = "center";
+								for (num = 1; num < 13; num++) {
+									ang = num * Math.PI / 6;
+									ctx.rotate(ang);
+									ctx.translate(0, -radius * 0.85);
+									ctx.rotate(-ang);
+									ctx.fillText(num.toString(), 0, 0);
+									ctx.rotate(ang);
+									ctx.translate(0, radius * 0.85);
+									ctx.rotate(-ang);
+								}
+							}
+
+							function drawTime(ctx, radius) {
+								var now = new Date();
+								var hour = now.getHours();
+								var minute = now.getMinutes();
+								var second = now.getSeconds();
+								//hour
+								hour = hour % 12;
+								hour = (hour * Math.PI / 6) + (minute * Math.PI / (6 * 60)) + (second * Math.PI / (360 * 60));
+								drawHand(ctx, hour, radius * 0.5, radius * 0.07);
+								//minute
+								minute = (minute * Math.PI / 30) + (second * Math.PI / (30 * 60));
+								drawHand(ctx, minute, radius * 0.8, radius * 0.07);
+								// second
+								second = (second * Math.PI / 30);
+								drawHand(ctx, second, radius * 0.9, radius * 0.02);
+							}
+
+							function drawHand(ctx, pos, length, width) {
+								ctx.beginPath();
+								ctx.lineWidth = width;
+								ctx.lineCap = "round";
+								ctx.moveTo(0, 0);
+								ctx.rotate(pos);
+								ctx.lineTo(0, -length);
+								ctx.stroke();
+								ctx.rotate(-pos);
+							}
+						</script>
+
+					</div>
+				</section>
+				<section>
+					<h5>Video</h5>
+					<div>
+
+
+						<canvas id="canvasVideo" width="480" height="320" style="border: 1px solid #FFFFFF;"></canvas>
+
+
+						<script>
+							var mediaSource = "assets/video/nature-video.mp4"
+
+							var muted = true;
+							var canvasVideo = document.getElementById("canvasVideo"); // get the canvas from the page
+							var ctxVideo = canvasVideo.getContext("2d");
+							var videoContainer; // object to hold video and associated info
+							var video = document.createElement("video"); // create a video element
+							video.src = mediaSource;
+							// the video will now begin to load.
+							// As some additional info is needed we will place the video in a
+							// containing object for convenience
+							video.autoPlay = false; // ensure that the video does not auto play
+							video.loop = true; // set the video to loop.
+							video.muted = muted;
+							videoContainer = { // we will add properties as needed
+								video: video,
+								ready: false,
+							};
+							// To handle errors. This is not part of the example at the moment. Just fixing for Edge that did not like the ogv format video
+							video.onerror = function (e) {
+								document.body.removeChild(canvas);
+								document.body.innerHTML += "<h2>There is a problem loading the video</h2><br>";
+								document.body.innerHTML += "Users of IE9+ , the browser does not support WebM videos used by this demo";
+								document.body.innerHTML +=
+									"<br><a href='https://tools.google.com/dlpage/webmmf/'> Download IE9+ WebM support</a> from tools.google.com<br> this includes Edge and Windows 10";
+
+							}
+							video.oncanplay = readyToPlayVideo; // set the event to the play function that 
+							// can be found below
+							function readyToPlayVideo(event) { // this is a referance to the video
+								// the video may not match the canvas size so find a scale to fit
+								videoContainer.scale = Math.min(
+									canvas.width / this.videoWidth,
+									canvas.height / this.videoHeight);
+								videoContainer.ready = true;
+								// the video can be played so hand it off to the display function
+								requestAnimationFrame(updateCanvas);
+								// add instruction
+								//document.getElementById("playPause").textContent = "Click video to play/pause.";
+								//document.querySelector(".mute").textContent = "Mute";
+							}
+
+							function updateCanvas() {
+								ctxVideo.clearRect(0, 0, canvasVideo.width, canvasVideo.height);
+								// only draw if loaded and ready
+								if (videoContainer !== undefined && videoContainer.ready) {
+									// find the top left of the video on the canvas
+									video.muted = muted;
+									var scale = videoContainer.scale;
+									var vidH = videoContainer.video.videoHeight;
+									var vidW = videoContainer.video.videoWidth;
+									var top = canvasVideo.height / 2 - (vidH / 2) * scale;
+									var left = canvasVideo.width / 2 - (vidW / 2) * scale;
+									// now just draw the video the correct size
+									ctxVideo.drawImage(videoContainer.video, left, top, vidW * scale, vidH * scale);
+									if (videoContainer.video.paused) { // if not playing show the paused screen 
+										drawPayIcon();
+									}
+								}
+								// all done for display 
+								// request the next frame in 1/60th of a second
+								requestAnimationFrame(updateCanvas);
+							}
+
+							function drawPayIcon() {
+								ctxVideo.fillStyle = "black"; // darken display
+								ctxVideo.globalAlpha = 0.5;
+								ctxVideo.fillRect(0, 0, canvasVideo.width, canvasVideo.height);
+								ctxVideo.fillStyle = "#DDD"; // colour of play icon
+								ctxVideo.globalAlpha = 0.75; // partly transparent
+								ctxVideo.beginPath(); // create the path for the icon
+								var size = (canvasVideo.height / 2) * 0.5; // the size of the icon
+								ctxVideo.moveTo(canvasVideo.width / 2 + size / 2, canvasVideo.height / 2); // start at the pointy end
+								ctxVideo.lineTo(canvasVideo.width / 2 - size / 2, canvasVideo.height / 2 + size);
+								ctxVideo.lineTo(canvasVideo.width / 2 - size / 2, canvasVideo.height / 2 - size);
+								ctxVideo.closePath();
+								ctxVideo.fill();
+								ctxVideo.globalAlpha = 1; // restore alpha
+							}
+
+							function playPauseClick() {
+								if (videoContainer !== undefined && videoContainer.ready) {
+									if (videoContainer.video.paused) {
+										videoContainer.video.play();
+									} else {
+										videoContainer.video.pause();
+									}
+								}
+							}
+
+							function videoMute() {
+								muted = !muted;
+								if (muted) {
+									document.querySelector(".mute").textContent = "Mute";
+								} else {
+									document.querySelector(".mute").textContent = "Sound on";
+								}
+
+
+							}
+							// register the event
+							canvasVideo.addEventListener("click", playPauseClick);
+							//document.querySelector(".mute").addEventListener("click", videoMute)
+						</script>
+					</div>
+
+				</section>
+				<section>
+					<h5>Game</h5>
+					<div>
+						<canvas id="canvasGame" width="480" height="320" style="border: 1px solid #FFFFFF"></canvas>
+						<script>
+							function createGame() {
+								var canvasGame = document.getElementById("canvasGame");
+								var ctxGame = canvasGame.getContext("2d");
+								var ballRadius = 10;
+								var x = canvasGame.width / 2;
+								var y = canvasGame.height - 30;
+								var dx = 2;
+								var dy = -2;
+								var paddleHeight = 10;
+								var paddleWidth = 75;
+								var paddleX = (canvasGame.width - paddleWidth) / 2;
+								var rightPressed = false;
+								var leftPressed = false;
+								var brickRowCount = 5;
+								var brickColumnCount = 3;
+								var brickWidth = 75;
+								var brickHeight = 20;
+								var brickPadding = 10;
+								var brickOffsetTop = 30;
+								var brickOffsetLeft = 30;
+								var score = 0;
+								var lives = 3;
+
+								var bricks = [];
+								for (var c = 0; c < brickColumnCount; c++) {
+									bricks[c] = [];
+									for (var r = 0; r < brickRowCount; r++) {
+										bricks[c][r] = {
+											x: 0,
+											y: 0,
+											status: 1
+										};
+									}
+								}
+
+								document.addEventListener("keydown", keyDownHandler, false);
+								document.addEventListener("keyup", keyUpHandler, false);
+								document.addEventListener("mousemove", mouseMoveHandler, false);
+
+								function keyDownHandler(e) {
+									if (e.key == "Right" || e.key == "ArrowRight") {
+										rightPressed = true;
+									} else if (e.key == "Left" || e.key == "ArrowLeft") {
+										leftPressed = true;
+									}
+								}
+
+								function keyUpHandler(e) {
+									if (e.key == "Right" || e.key == "ArrowRight") {
+										rightPressed = false;
+									} else if (e.key == "Left" || e.key == "ArrowLeft") {
+										leftPressed = false;
+									}
+								}
+
+								function mouseMoveHandler(e) {
+									var relativeX = e.clientX - canvasGame.offsetLeft;
+									if (relativeX > 0 && relativeX < canvasGame.width) {
+										paddleX = relativeX - paddleWidth / 2;
+									}
+								}
+
+								function collisionDetection() {
+									for (var c = 0; c < brickColumnCount; c++) {
+										for (var r = 0; r < brickRowCount; r++) {
+											var b = bricks[c][r];
+											if (b.status == 1) {
+												if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
+													dy = -dy;
+													b.status = 0;
+													score++;
+													if (score == brickRowCount * brickColumnCount) {
+														//alert("YOU WIN, CONGRATS!");
+														x = canvasGame.width / 2;
+														y = canvasGame.height - 30;;
+														score = 0;
+														lives = 3;
+														dx = 2;
+														dy = -2;
+														for (var c = 0; c < brickColumnCount; c++) {
+															bricks[c] = [];
+															for (var r = 0; r < brickRowCount; r++) {
+																bricks[c][r] = {
+																	x: 0,
+																	y: 0,
+																	status: 1
+																};
+															}
+														}
+
+														//document.location.reload();
+													}
+												}
+											}
+										}
+									}
+								}
+
+								function drawBall() {
+									ctxGame.beginPath();
+									ctxGame.arc(x, y, ballRadius, 0, Math.PI * 2);
+									ctxGame.fillStyle = "#00FF00";
+									ctxGame.fill();
+									ctxGame.closePath();
+								}
+
+								function drawPaddle() {
+									ctxGame.beginPath();
+									ctxGame.rect(paddleX, canvasGame.height - paddleHeight, paddleWidth, paddleHeight);
+									ctxGame.fillStyle = "#00FF00";
+									ctxGame.fill();
+									ctxGame.closePath();
+								}
+
+								function drawBricks() {
+									for (var c = 0; c < brickColumnCount; c++) {
+										for (var r = 0; r < brickRowCount; r++) {
+											if (bricks[c][r].status == 1) {
+												var brickX = (r * (brickWidth + brickPadding)) + brickOffsetLeft;
+												var brickY = (c * (brickHeight + brickPadding)) + brickOffsetTop;
+												bricks[c][r].x = brickX;
+												bricks[c][r].y = brickY;
+												ctxGame.beginPath();
+												ctxGame.rect(brickX, brickY, brickWidth, brickHeight);
+												ctxGame.fillStyle = "#00FF00";
+												ctxGame.fill();
+												ctxGame.closePath();
+											}
+										}
+									}
+								}
+
+								function drawScore() {
+									ctxGame.font = "16px Arial";
+									ctxGame.fillStyle = "#00FF00";
+									ctxGame.fillText("Score: " + score, 10, 20);
+								}
+
+								function drawLives() {
+									ctxGame.font = "16px Arial";
+									ctxGame.fillStyle = "#00FF00";
+									ctxGame.fillText("Lives: " + lives, canvasGame.width - 65, 20);
+								}
+
+								function draw() {
+									ctxGame.clearRect(0, 0, canvasGame.width, canvasGame.height);
+									drawBricks();
+									drawBall();
+									drawPaddle();
+									drawScore();
+									drawLives();
+									collisionDetection();
+
+									if (x + dx > canvasGame.width - ballRadius || x + dx < ballRadius) {
+										dx = -dx;
+									}
+									if (y + dy < ballRadius) {
+										dy = -dy;
+									} else if (y + dy > canvasGame.height - ballRadius) {
+										if (x > paddleX && x < paddleX + paddleWidth) {
+											dy = -dy;
+										} else {
+											lives--;
+											if (!lives) {
+												//alert("GAME OVER");
+												x = canvasGame.width / 2;
+												y = canvasGame.height - 30;;
+												score = 0;
+												lives = 3;
+												dx = 2;
+												dy = -2;
+												for (var c = 0; c < brickColumnCount; c++) {
+													bricks[c] = [];
+													for (var r = 0; r < brickRowCount; r++) {
+														bricks[c][r] = {
+															x: 0,
+															y: 0,
+															status: 1
+														};
+													}
+												}
+												//document.location.reload();
+											} else {
+												x = canvasGame.width / 2;
+												y = canvasGame.height - 30;
+												dx = 3;
+												dy = -3;
+												paddleX = (canvasGame.width - paddleWidth) / 2;
+											}
+										}
+									}
+
+									if (rightPressed && paddleX < canvasGame.width - paddleWidth) {
+										paddleX += 7;
+									} else if (leftPressed && paddleX > 0) {
+										paddleX -= 7;
+									}
+
+									x += dx;
+									y += dy;
+									requestAnimationFrame(draw);
+								}
+
+								draw();
+							};
+							createGame();
+						</script>
+					</div>
+				</section>
+			</section>
+			<section style="font-size:x-large;">
+				<h2>SUMMARY</h2>
+				<p class="fragment fade-in" style="text-align:justify;">1. <span style="color: #00FF00;">&lt;canvas&gt;</span> is an <span style="color: #FFFFFF;">HTML element</span></p>
+				<p class="fragment fade-in" style="text-align:justify;">2. <span style="color: #00FF00;">&lt;canvas&gt;</span> is used to <span style="color: #FFFFFF;">draw graphics, on the fly, via scripting (usually JavaScript)</span></p>
+				<p class="fragment fade-in" style="text-align:justify;">3. <span style="color: #00FF00;">&lt;canvas&gt;</span> was introduced by <span style="color: #FFFFFF;">Apple</span> in <span style="color: #FFFFFF;">2004</span>, <span style="color: #FFFFFF;">later</span> it <span style="color: #FFFFFF; font-style: italic;">was implemented in browsers</span></p>
+				<p class="fragment fade-in" style="text-align:justify;">4. <span style="color: #FFFFFF; font-style: italic;">Elder versions of browsers</span> <span style="color: #FFFFFF;">don't support</span> <span style="color: #00FF00;">&lt;canvas&gt;</span></p>
+				<p class="fragment fade-in" style="text-align:justify;">5. The <span style="color: #00FF00;">&lt;canvas&gt;</span> element must have an <span style="color: #00FF00;">id</span> <span style="color: #FFFFFF;">attribute</span> so it can be referred to by JavaScript</p>
+				<p class="fragment fade-in" style="text-align:justify;">6. <span style="color: #FFFFFF;">By default</span> <span style="color: #00FF00;">&lt;canvas&gt;</span> is <span style="color: #00FF00;">300 pixels wide</span> and <span style="color: #00FF00;">150 pixels high</span></p>
+				<p class="fragment fade-in" style="text-align:justify;">7. <span style="color: #FFFFFF;">By default</span> <span style="color: #00FF00;">&lt;canvas&gt;</span> has <span style="color: #00FF00;">no border</span> and <span style="color: #00FF00;">no content</span></p>
+				<p class="fragment fade-in" style="text-align:justify;">8. <span style="color: #00FF00;">&lt;canvas&gt;</span> could be used to <span style="color: #FFFFFF;">draw lines, circles, curves, to add text, images and videos, to create gradients, charts, animation and games</span></p>
+			</section>
+		</div>
+	</div>
+
+	<script src="dist/reveal.js"></script>
+	<script src="plugin/notes/notes.js"></script>
+	<script src="plugin/markdown/markdown.js"></script>
+	<script src="plugin/highlight/highlight.js"></script>
+	<script>
+		// More info about initialization & config:
+		// - https://revealjs.com/initialization/
+		// - https://revealjs.com/config/
+		Reveal.initialize({
+			hash: true,
+			mouseWheel: true,
+
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+		});
+	</script>
+</body>
+
+</html>
